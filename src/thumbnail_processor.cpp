@@ -22,7 +22,8 @@ ThumbnailProcessor::~ThumbnailProcessor() {
 
 std::vector<uint8_t> ThumbnailProcessor::create_thumbnail(const std::vector<uint8_t>& image_data, 
                                                          int target_width, 
-                                                         int target_height) {
+                                                         int target_height,
+                                                         const std::string& format) {
     VipsImage *input = nullptr;
     VipsImage *thumbnail = nullptr;
     void *buffer = nullptr;
@@ -62,20 +63,33 @@ std::vector<uint8_t> ThumbnailProcessor::create_thumbnail(const std::vector<uint
         }
         std::cout << "Created thumbnail!" << std::endl;
 
-        std::cout << "Saving PNG to buffer..." << std::endl;
-        if (vips_pngsave_buffer(thumbnail, &buffer, &size,
-                               "compression", 6,
-                               "interlace", false,
-                               "filter", VIPS_FOREIGN_PNG_FILTER_NONE,
-                               nullptr)) {
+        std::cout << "Saving " << format << " to buffer..." << std::endl;
+        int save_result = 1;
+        if (format == "jpeg") {
+            save_result = vips_jpegsave_buffer(thumbnail, &buffer, &size,
+                                              "Q", 90,
+                                              "strip", true,
+                                              nullptr);
+        } else if (format == "webp") {
+            save_result = vips_webpsave_buffer(thumbnail, &buffer, &size,
+                                               "Q", 90,
+                                               nullptr);
+        } else { // default to PNG
+            save_result = vips_pngsave_buffer(thumbnail, &buffer, &size,
+                                             "compression", 6,
+                                             "interlace", false,
+                                             "filter", VIPS_FOREIGN_PNG_FILTER_NONE,
+                                             nullptr);
+        }
+        if (save_result) {
             std::string err = vips_error_buffer();
             vips_error_clear();
             g_object_unref(thumbnail);
             g_object_unref(input);
-            std::cerr << "Failed to save PNG: " << err << std::endl;
-            throw std::runtime_error("Failed to save PNG: " + err);
+            std::cerr << "Failed to save " << format << ": " << err << std::endl;
+            throw std::runtime_error("Failed to save " + format + ": " + err);
         }
-        std::cout << "Saved PNG!" << std::endl;
+        std::cout << "Saved " << format << "!" << std::endl;
 
         result.assign(static_cast<uint8_t*>(buffer), static_cast<uint8_t*>(buffer) + size);
 

@@ -27,7 +27,10 @@ private:
     void handle_request(http::request<http::dynamic_body>& req, 
                        http::response<http::vector_body<uint8_t>>& res);
     void handle_upload(const http::request<http::dynamic_body>& req,
-                      http::response<http::vector_body<uint8_t>>& res);
+                      http::response<http::vector_body<uint8_t>>& res,
+                      const std::string& format,
+                      int target_width,
+                      int target_height);
     void handle_metrics(http::response<http::string_body>& res);
     void handle_static(const std::string& path, http::response<http::string_body>& res);
     std::string get_static_content(const std::string& path);
