@@ -104,6 +104,14 @@ echo "- ThumbnailGen (your application)"
 echo ""
 
 # Start the full stack
+if ! docker compose build --no-cache; then
+    echo ""
+    echo -e "${RED}❌ ERROR: Failed to build Docker images!${NC}"
+    echo "Please check the error messages above and try again."
+    echo ""
+    exit 1
+fi
+
 if ! docker compose up -d; then
     echo ""
     echo -e "${RED}❌ ERROR: Failed to start the monitoring stack!${NC}"

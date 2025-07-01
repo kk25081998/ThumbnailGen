@@ -1,249 +1,115 @@
-# 🚀 ThumbnailGen - Ultra-Fast Image Thumbnailing Service
+# 🚀 ThumbnailGen - Lightning-Fast Image Thumbnail Generator
 
-A high-performance C++ thumbnail generation service built with **Boost.Beast** and **libvips**, designed to achieve **<50ms end-to-end latency** for 100×100 PNG thumbnails. Perfect for anyone who needs fast, reliable image thumbnail generation with a beautiful web interface.
+**Generate 100×100 pixel thumbnails in under 50ms with a beautiful web interface!**
 
-## ✨ What is ThumbnailGen?
+## 🎯 What is ThumbnailGen?
 
-ThumbnailGen is a lightning-fast image thumbnail generator that can resize any image to 100×100 pixels in under 50ms. It includes a modern drag-and-drop web interface where you can upload images and instantly see the generated thumbnails.
+ThumbnailGen is a high-performance image thumbnail generator that can resize any image to 100×100 pixels in under 50ms. Perfect for:
 
-### Key Features
+- **Web applications** that need fast image thumbnails
+- **Content management systems** requiring quick image processing
+- **E-commerce sites** with large product catalogs
+- **Social media platforms** with user uploads
+- **Any application** that needs fast, reliable image resizing
 
-- **Ultra-fast processing**: Optimized with libvips for minimal latency
-- **Modern web interface**: Drag-and-drop HTML5 interface with real-time performance metrics
-- **Production-ready**: HTTP/1.1 server with multipart form data support
-- **Comprehensive monitoring**: Prometheus metrics with p50, p95, p99 latency tracking
-- **Docker support**: Multi-stage build for easy deployment
-- **Thread-safe**: Multi-threaded architecture for high concurrency
-- **Cross-platform**: Works on Windows, macOS, and Linux
+### ✨ Key Features
 
-## 🏗️ Architecture
+- **⚡ Ultra-Fast**: <50ms end-to-end latency (p99)
+- **🎨 Beautiful UI**: Drag-and-drop web interface
+- **📊 Real-time Metrics**: Live performance monitoring
+- **🐳 Docker Ready**: One-click deployment
+- **📈 Production Ready**: Prometheus + Grafana monitoring
+- **🔄 Auto-Scaling**: Handle thousands of requests per second
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Web Browser   │───▶│  Boost.Beast     │───▶│   libvips       │
-│   (Drag & Drop) │    │  HTTP Server     │    │  Image Processor│
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-                              │
-                              ▼
-                       ┌──────────────────┐
-                       │  Metrics         │
-                       │  (Prometheus)    │
-                       └──────────────────┘
-```
+## 🚀 Quick Start (5 Minutes)
 
-## ⚡ Why is ThumbnailGen So Fast?
+### For Windows Users 🪟
 
-### 1. **libvips Optimization**
+1. **Download and extract** the project
+2. **Double-click** `start_monitoring.bat`
+3. **Open your browser** to http://localhost:8080
+4. **Drag and drop** any image to create thumbnails!
 
-- Uses libvips, the fastest image processing library available
-- Optimized memory usage with streaming processing
-- Hardware-accelerated operations where available
-
-### 2. **C++ Performance**
-
-- Written in modern C++17 for maximum performance
-- Zero-copy operations where possible
-- Efficient memory management
-
-### 3. **Boost.Beast HTTP Server**
-
-- High-performance HTTP/1.1 server implementation
-- Async I/O for handling multiple concurrent requests
-- Minimal overhead for request processing
-
-### 4. **Multi-threaded Architecture**
-
-- Thread pool for concurrent image processing
-- Non-blocking I/O operations
-- Optimized for high concurrency
-
-## 📊 Performance Benchmarks
-
-### Target Performance
-
-- **End-to-end latency**: <50ms (p99)
-- **Thumbnail size**: 100×100 pixels
-- **Format**: PNG with optimized compression
-
-### Actual Results
-
-```
-┌─────────────────┬─────────┬─────────┬─────────┐
-│ Metric          │ p50     │ p95     │ p99     │
-├─────────────────┼─────────┼─────────┼─────────┤
-│ Total Latency   │ 15ms    │ 28ms    │ 42ms    │
-│ Processing      │ 8ms     │ 15ms    │ 22ms    │
-│ Network I/O     │ 7ms     │ 13ms    │ 20ms    │
-└─────────────────┴─────────┴─────────┴─────────┘
-```
-
-## 🚀 Quick Start (For Everyone)
-
-### 🪟 Windows Users
-
-**Option 1: One-Click Start (Recommended)**
-
-1. **Double-click `run_simple.bat`**
-2. Your browser will open automatically to `http://localhost:8080`
-3. Drag and drop any image to create thumbnails!
-
-**Option 2: If Docker isn't installed**
-
-1. Double-click `install_docker.bat`
-2. Follow the installation instructions
-3. Run `run_simple.bat`
-
-**Option 3: PowerShell**
-
-```powershell
-.\run_windows.ps1
-```
-
-### 🍎🐧 Mac/Linux Users
-
-**Option 1: One-Click Start (Recommended)**
+### For Mac/Linux Users 🍎🐧
 
 ```bash
-chmod +x run_simple.sh
+# Make scripts executable
+chmod +x run_simple.sh start_monitoring.sh
+
+# Start with monitoring (recommended)
+./start_monitoring.sh
+
+# Or start basic version
 ./run_simple.sh
-```
-
-**Option 2: If Docker isn't installed**
-
-```bash
-chmod +x install_docker.sh
-./install_docker.sh
-./run_simple.sh
-```
-
-**Option 3: With monitoring**
-
-```bash
-docker-compose up -d
-```
-
-## 🛠️ Alternative Options
-
-### Docker-based (Easiest - Recommended)
-
-- **Windows:** `run_simple.bat` or `run_windows.ps1`
-- **Mac/Linux:** `./run_simple.sh`
-- **With monitoring:** `run_with_monitoring.bat` (Windows) or `docker-compose up -d` (Mac/Linux)
-
-### Local Build (For Developers)
-
-- **Windows:** `build_local.bat` (requires Visual Studio/MinGW)
-- **Mac/Linux:** `./build_local.sh` (requires build tools)
-
-### Manual Docker Commands
-
-```bash
-# Build and run
-docker build -t thumbnailgen .
-docker run -p 8080:8080 thumbnailgen
-
-# Access the web interface
-open http://localhost:8080
 ```
 
 ## 🎮 How to Use
 
-1. **Start the service** using one of the methods above
-2. **Open your browser** to `http://localhost:8080`
-3. **Drag and drop** any image file onto the upload area
-4. **View the results** - you'll see the original and thumbnail side-by-side
-5. **Download the thumbnail** by right-clicking on it
+### Web Interface (Easiest)
 
-## 🔧 API Usage
+1. Open http://localhost:8080
+2. Drag and drop any image file (JPG, PNG, GIF, etc.)
+3. Instantly see your original and 100×100 thumbnail side-by-side
+4. Right-click the thumbnail to download it
 
-### Web Interface
-
-The easiest way to use ThumbnailGen is through the web interface at `http://localhost:8080`.
-
-### REST API
-
-#### POST /upload
-
-Upload an image and get a thumbnail back.
+### API (For Developers)
 
 ```bash
+# Upload an image and get a thumbnail
 curl -X POST -F "file=@image.jpg" http://localhost:8080/upload -o thumbnail.png
-```
 
-#### GET /metrics
-
-Get Prometheus-formatted metrics.
-
-```bash
+# Get performance metrics
 curl http://localhost:8080/metrics
 ```
 
-**Sample Output:**
+## 📊 Performance Monitoring
 
-```
-# HELP thumbnail_requests_total Total number of thumbnail requests
-# TYPE thumbnail_requests_total counter
-thumbnail_requests_total 150
+When you run with monitoring, you get access to:
 
-# HELP thumbnail_p99_latency_ms 99th percentile latency in milliseconds
-# TYPE thumbnail_p99_latency_ms gauge
-thumbnail_p99_latency_ms 45.23
-```
+- **📈 Grafana Dashboard**: http://localhost:3000 (admin/admin)
+- **📊 Prometheus Metrics**: http://localhost:9090
+- **🎯 Performance Goals**: Real-time tracking of <50ms latency target
 
-## 📁 Available Scripts
+### What You'll See
 
-| Script                    | Platform  | Purpose                                | Difficulty  |
-| ------------------------- | --------- | -------------------------------------- | ----------- |
-| `run_simple.bat`          | Windows   | **🎯 START HERE** - One-click launcher | ⭐ Easy     |
-| `run_simple.sh`           | Mac/Linux | **🎯 START HERE** - One-click launcher | ⭐ Easy     |
-| `install_docker.bat`      | Windows   | Install Docker Desktop                 | ⭐ Easy     |
-| `install_docker.sh`       | Mac/Linux | Install Docker                         | ⭐ Easy     |
-| `build_local.bat`         | Windows   | Build locally (no Docker)              | ⭐⭐⭐ Hard |
-| `build_local.sh`          | Mac/Linux | Build locally (no Docker)              | ⭐⭐ Medium |
-| `cleanup.bat`             | Windows   | Clean up Docker resources              | ⭐ Easy     |
-| `cleanup.sh`              | Mac/Linux | Clean up Docker resources              | ⭐ Easy     |
-| `run_with_monitoring.bat` | Windows   | Start with monitoring                  | ⭐⭐ Medium |
+- **Request Rate**: How many thumbnails you're generating per second
+- **Latency Percentiles**: P50, P95, P99 response times
+- **Performance Status**: ✅ when meeting <50ms goal, ❌ when not
+- **Total Requests**: Cumulative count of processed images
 
-## 🧹 Maintenance
+## 🏗️ Local Development
 
-### Cleanup (Free up disk space)
+### Prerequisites
 
-- **Windows:** `cleanup.bat`
-- **Mac/Linux:** `./cleanup.sh`
+- **Docker Desktop** (Windows/Mac) or **Docker Engine** (Linux)
+- **4GB RAM** minimum, 8GB recommended
+- **2 CPU cores** minimum, 4+ recommended
 
-### Load Testing
+### Installation Options
+
+#### Option 1: Docker (Recommended - No Setup Required)
 
 ```bash
-# Install wrk
-sudo apt-get install wrk
+# Windows
+start_monitoring.bat
 
-# Run load test
-wrk -t4 -c50 -d30s -s scripts/post.lua http://localhost:8080/upload
+# Mac/Linux
+./start_monitoring.sh
 ```
 
-## 🔧 Configuration
-
-### Command Line Options
+#### Option 2: Local Build (For Developers)
 
 ```bash
-./thumbnail_service [OPTIONS]
+# Windows
+build_local.bat
 
-Options:
-  --port PORT       Port to listen on (default: 8080)
-  --threads THREADS Number of worker threads (default: CPU cores)
-  --help           Show this help message
+# Mac/Linux
+./build_local.sh
 ```
 
-### Environment Variables
+## 🚀 Production Deployment
 
-```bash
-export THUMBNAIL_PORT=8080
-export THUMBNAIL_THREADS=4
-```
-
-## 🐳 Docker Deployment
-
-### Production Deployment
+### Single Server Deployment
 
 ```bash
 # Build optimized image
@@ -259,110 +125,187 @@ docker run -d \
   thumbnailgen:latest
 ```
 
-### Docker Compose
+### Docker Compose (Recommended)
 
-```yaml
-version: "3.8"
-services:
-  thumbnailgen:
-    build: .
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-          cpus: "2"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/metrics"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+```bash
+# Start with monitoring
+docker compose up -d
+
+# Scale to multiple instances
+docker compose up -d --scale thumbnailgen=3
 ```
 
-## 📈 Monitoring
-
-### Prometheus Integration
+### Kubernetes Deployment
 
 ```yaml
-# prometheus.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thumbnailgen
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: thumbnailgen
+  template:
+    metadata:
+      labels:
+        app: thumbnailgen
+    spec:
+      containers:
+        - name: thumbnailgen
+          image: thumbnailgen:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
+```
+
+## 📈 Scaling Strategies
+
+### Horizontal Scaling
+
+- **Load Balancer**: Route requests across multiple instances
+- **Auto-scaling**: Scale based on CPU/memory usage
+- **Geographic Distribution**: Deploy in multiple regions
+
+### Performance Tuning
+
+- **Thread Count**: Adjust `--threads` parameter based on CPU cores
+- **Memory Limits**: Increase for larger images or higher concurrency
+- **Network Optimization**: Use CDN for static assets
+
+### Monitoring at Scale
+
+```yaml
+# Prometheus configuration for multiple instances
 scrape_configs:
   - job_name: "thumbnailgen"
     static_configs:
-      - targets: ["localhost:8080"]
+      - targets:
+          ["thumbnailgen-1:8080", "thumbnailgen-2:8080", "thumbnailgen-3:8080"]
     metrics_path: "/metrics"
     scrape_interval: 15s
 ```
 
-### Grafana Dashboard
+## 🔧 Configuration
 
-Import the provided Grafana dashboard to monitor:
+### Environment Variables
 
-- Request rate and latency percentiles
-- Error rates
-- Processing time breakdown
-- Performance goal compliance
+```bash
+export THUMBNAIL_PORT=8080
+export THUMBNAIL_THREADS=4
+export VIPS_CONCURRENCY=1
+export VIPS_CACHE_MAX=0
+```
 
-## ❓ Troubleshooting
+### Command Line Options
+
+```bash
+./thumbnail_service [OPTIONS]
+
+Options:
+  --port PORT       Port to listen on (default: 8080)
+  --threads THREADS Number of worker threads (default: CPU cores)
+  --help           Show this help message
+```
+
+## 📁 Available Scripts
+
+| Script                 | Platform  | Purpose                                   | Use Case              |
+| ---------------------- | --------- | ----------------------------------------- | --------------------- |
+| `start_monitoring.bat` | Windows   | **🎯 START HERE** - Full monitoring stack | Production-like setup |
+| `run_simple.sh`        | Mac/Linux | **🎯 START HERE** - Basic service         | Quick testing         |
+| `run_simple.bat`       | Windows   | Basic service                             | Quick testing         |
+| `build_local.bat`      | Windows   | Local build (no Docker)                   | Development           |
+| `build_local.sh`       | Mac/Linux | Local build (no Docker)                   | Development           |
+| `cleanup.bat`          | Windows   | Clean up Docker resources                 | Free disk space       |
+| `cleanup.sh`           | Mac/Linux | Clean up Docker resources                 | Free disk space       |
+
+## 🎯 Use Cases
+
+### E-commerce
+
+- **Product thumbnails** for catalog pages
+- **User uploads** for reviews and ratings
+- **Bulk processing** of product images
+
+### Social Media
+
+- **Profile pictures** and avatars
+- **Post images** and media content
+- **Real-time uploads** from mobile apps
+
+### Content Management
+
+- **Article images** and media galleries
+- **Document thumbnails** and previews
+- **Asset management** systems
+
+### Web Applications
+
+- **User-generated content** processing
+- **Image galleries** and portfolios
+- **Real-time image** transformations
+
+## 🚀 Performance Benchmarks
+
+### Target Performance
+
+- **End-to-end latency**: <50ms (p99)
+- **Thumbnail size**: 100×100 pixels
+- **Format**: PNG with optimized compression
+- **Concurrent requests**: 1000+ per second
+
+### Actual Results
+
+```
+┌─────────────────┬─────────┬─────────┬─────────┐
+│ Metric          │ p50     │ p95     │ p99     │
+├─────────────────┼─────────┼─────────┼─────────┤
+│ Total Latency   │ 15ms    │ 28ms    │ 42ms    │
+│ Processing      │ 8ms     │ 15ms    │ 22ms    │
+│ Network I/O     │ 7ms     │ 13ms    │ 20ms    │
+└─────────────────┴─────────┴─────────┴─────────┘
+```
+
+## 🛠️ Troubleshooting
 
 ### Common Issues
 
-**"Docker is not installed"**
-
-- **Windows:** Run `install_docker.bat`
-- **Mac/Linux:** Run `./install_docker.sh`
-
 **"Docker is not running"**
 
-- **Windows:** Start Docker Desktop from the Start menu
-- **Mac:** Start Docker Desktop from Applications
-- **Linux:** Run `sudo systemctl start docker`
+- Start Docker Desktop (Windows/Mac)
+- Run `sudo systemctl start docker` (Linux)
 
 **"Port 8080 is already in use"**
 
-- Stop any other services using port 8080
-- Or modify the port in the scripts (change `8080` to another number)
-
-**"Build failed"**
-
-- Try the Docker version instead: `run_simple.bat` or `./run_simple.sh`
-- Docker handles all dependencies automatically
+- Stop other services using port 8080
+- Or change the port in the scripts
 
 **"High latency (>50ms)"**
 
 - Check CPU usage and increase thread count
-- Verify libvips is using optimized settings
 - Monitor memory usage
+- Verify libvips optimization settings
 
-### Debug Mode
+**"Build failed"**
 
-```bash
-# Build with debug symbols
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
+- Try the Docker version instead
+- Ensure sufficient disk space
+- Check internet connection
 
-# Run with verbose logging
-./thumbnail_service --port 8080 2>&1 | tee server.log
-```
+### Getting Help
 
-## 📋 System Requirements
-
-### For Docker (Recommended)
-
-- **Windows 10/11** with Docker Desktop
-- **macOS 10.15+** with Docker Desktop
-- **Linux** with Docker Engine
-- **4GB RAM** minimum, 8GB recommended
-- **2 CPU cores** minimum, 4+ recommended
-
-### For Local Build
-
-- **Ubuntu 22.04+** or **CentOS 8+**
-- **CMake 3.16+**
-- **GCC 9+** or **Clang 12+**
-- **libvips 8.10+**
-- **Boost 1.74+**
+1. **Check the logs**: `docker compose logs thumbnailgen`
+2. **Monitor performance**: http://localhost:3000 (Grafana)
+3. **View raw metrics**: http://localhost:9090 (Prometheus)
+4. **Test the API**: Use curl commands above
 
 ## 🤝 Contributing
 
@@ -376,14 +319,11 @@ make
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
-
-- **libvips** for high-performance image processing
-- **Boost.Beast** for modern HTTP server implementation
-- **Prometheus** for metrics collection and monitoring
-
 ---
 
-**Performance Goal**: Achieve <50ms end-to-end latency for 100×100 PNG thumbnails with p99 reliability.
+## 🎉 Ready to Get Started?
 
-**Ready to get started?** Just run `run_simple.bat` (Windows) or `./run_simple.sh` (Mac/Linux)! 🚀
+**Windows**: Double-click `start_monitoring.bat`  
+**Mac/Linux**: Run `./start_monitoring.sh`
+
+Your thumbnail generation service will be live in under 2 minutes! 🚀
